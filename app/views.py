@@ -2,8 +2,8 @@ from flask_appbuilder import ModelView
 from flask_appbuilder.fieldwidgets import Select2Widget
 from flask_appbuilder.models.sqla.interface import SQLAInterface
 from .models import Employee,Department, Function, EmployeeHistory, Benefit, MenuItem, MenuCategory, News, NewsCategory
-from wtforms.ext.sqlalchemy.fields import QuerySelectField
-from app import appbuilder, db
+from wtforms_sqlalchemy.fields import QuerySelectField
+from app import app, appbuilder, db
 from flask_appbuilder.baseviews import expose, BaseView
 
 
@@ -79,15 +79,16 @@ class NewsPageView(BaseView):
         return self.render_template('news.html', param1=param1)
 
 
-db.create_all()
+with app.app_context():
+    db.create_all()
 
-""" Page View """
-appbuilder.add_view(NewsPageView, 'Local News', category="News")
-appbuilder.add_link("Global News", href="/newspageview/global_news/", category="News")
+    """ Page View """
+    appbuilder.add_view(NewsPageView, 'Local News', category="News")
+    appbuilder.add_link("Global News", href="/newspageview/global_news/", category="News")
 
-""" Custom Views """
-appbuilder.add_view(MenuItemView, "MenuItem", icon="fa-folder-open-o", category="Admin")
-appbuilder.add_view(MenuCategoryView, "MenuCategory", icon="fa-folder-open-o", category="Admin")
-appbuilder.add_view(NewsView, "News", icon="fa-folder-open-o", category="Admin")
-appbuilder.add_view(NewsCategoryView, "NewsCategory", icon="fa-folder-open-o", category="Admin")
+    """ Custom Views """
+    appbuilder.add_view(MenuItemView, "MenuItem", icon="fa-folder-open-o", category="Admin")
+    appbuilder.add_view(MenuCategoryView, "MenuCategory", icon="fa-folder-open-o", category="Admin")
+    appbuilder.add_view(NewsView, "News", icon="fa-folder-open-o", category="Admin")
+    appbuilder.add_view(NewsCategoryView, "NewsCategory", icon="fa-folder-open-o", category="Admin")
 

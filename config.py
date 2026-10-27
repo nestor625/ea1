@@ -37,6 +37,8 @@ LANGUAGES = {
 UPLOAD_FOLDER = basedir + '/app/static/uploads/'
 IMG_UPLOAD_FOLDER = basedir + '/app/static/uploads/'
 IMG_UPLOAD_URL = '/static/uploads/'
+# 1 is AUTH_DB in Flask-AppBuilder 1.x through 5.x. OpenID 2.0 (AUTH_OID = 0)
+# was removed in Flask-AppBuilder 5, so OPENID_PROVIDERS below is unused.
 AUTH_TYPE = 1
 #AUTH_LDAP_SERVER = "ldap://dc.domain.net"
 AUTH_ROLE_ADMIN = 'Admin'
