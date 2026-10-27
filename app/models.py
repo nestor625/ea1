@@ -3,7 +3,11 @@ from sqlalchemy import Table, Column, Integer, String, ForeignKey, Date, Text
 from sqlalchemy.orm import relationship
 from flask_appbuilder import Model
 
+# Flask-AppBuilder 5 no longer derives table names from class names.
+# These names match the ones version 1.12 generated.
+
 class Gender(Model):
+    __tablename__ = 'gender'
     id = Column(Integer, primary_key=True)
     name = Column(String(50), unique = True, nullable=False)
 
@@ -11,6 +15,7 @@ class Gender(Model):
         return self.name
 
 class Country(Model):
+    __tablename__ = 'country'
     id = Column(Integer, primary_key=True)
     name = Column(String(50), unique = True, nullable=False)
 
@@ -18,6 +23,7 @@ class Country(Model):
         return self.name
 
 class Department(Model):
+    __tablename__ = 'department'
     id = Column(Integer, primary_key=True)
     name = Column(String(50), unique=True, nullable=False)
 
@@ -26,6 +32,7 @@ class Department(Model):
 
 
 class Function(Model):
+    __tablename__ = 'function'
     id = Column(Integer, primary_key=True)
     name = Column(String(50), unique=True, nullable=False)
 
@@ -34,6 +41,7 @@ class Function(Model):
 
 
 class Benefit(Model):
+    __tablename__ = 'benefit'
     id = Column(Integer, primary_key=True)
     name = Column(String(50), unique=True, nullable=False)
 
@@ -52,6 +60,7 @@ def today():
 
 
 class EmployeeHistory(Model):
+    __tablename__ = 'employee_history'
     id = Column(Integer, primary_key=True)
     department_id = Column(Integer, ForeignKey('department.id'), nullable=False)
     department = relationship("Department")
@@ -62,6 +71,7 @@ class EmployeeHistory(Model):
 
 
 class Employee(Model):
+    __tablename__ = 'employee'
     id = Column(Integer, primary_key=True)
     full_name = Column(String(150), nullable=False)
     address = Column(Text(250), nullable=False)
